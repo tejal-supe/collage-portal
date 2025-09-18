@@ -102,14 +102,14 @@ export const getMeController = async (req, res) => {
 
 export const createApiKey = async (req, res) => {
   try {
-    const { keyName } = req.body;
+    const { key } = req.body;
     const { _id } = req.user;
-    if (!keyName) {
+    if (!key) {
       return res.status(400).json({ message: "API key name required" });
     }
     const apiKey = await ApiKey.create({
       user: _id,
-      name: keyName,
+      name: key,
     });
 
     res.status(201).json({
