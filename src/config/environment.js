@@ -8,7 +8,6 @@ const config = {
   jwt_secret: process.env.JWT_SECRET,
   jwt_expiry: process.env.JWT_EXPIRES_IN,
   base_url: process.env.BASE_URL,
-  bcrypt_salt:process.env.SALT
 };
 
 export default config;
