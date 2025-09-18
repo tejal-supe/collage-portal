@@ -7,12 +7,25 @@ import {
   registerUserController,
 } from "../controllers/user.controller.js";
 import { authenticateJWT } from "../middlewares/auth.middleware.js";
+import { validateRegisterationUser } from "../utils/validator.js";
+import { handleValidationErrors } from "../middlewares/validation.middleware.js";
 
 const userRouter = express.Router();
 
-userRouter.post("/register", registerUserController);
-userRouter.post("/login", loginUserController);
-userRouter.get("/getMe", authenticateJWT, getMeController);
-userRouter.post("/generateApiKey", authenticateJWT, createApiKey);
+userRouter.post(
+  "/register",
+  validateRegisterationUser,
+  handleValidationErrors,
+  registerUserController
+);
+userRouter.post(
+  "/login",
+  validateRegisterationUser,
+  handleValidationErrors,
+  loginUserController
+);
+userRouter.use(authenticateJWT);
+userRouter.get("/getMe", getMeController);
+userRouter.post("/generateApiKey", createApiKey);
 
 export default userRouter;
