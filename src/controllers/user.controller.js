@@ -3,6 +3,7 @@ import bcrypt from "bcryptjs";
 
 import User from "../models/user.model.js";
 import config from "../config/environment.js";
+import ApiKey from "../models/apikey.model.js";
 
 
 export const registerUserController = async(req,res)=>{
@@ -79,15 +80,47 @@ export const loginUserController  = async(req,res)=>{
 export const getMeController = async (req, res) => {
   try {
     const { _id } = req.user;
+    const data = {
+        id:req.user._id,
+        firstName:req.user.firstName,
+        lastName:req.user.lastName,
+        emailId:req.user.emailId,
+        role:req.user.role
+    }
 
-    const userData = await User.findById({ _id }).select("-password");
-    if (!userData) {
+    // const userData = await User.findById({ _id }).select("-password");
+    if (!_id) {
       return res.status(400).json({ message: "User data doesn't exist" });
     }
     return res
       .status(201)
-      .json({ message: "User data fetched successfully", data: userData });
+      .json({ message: "User data fetched successfully", data: data });
   } catch (error) {
     console.log("Error in get me controller", error);
+  }
+};
+
+export const createApiKey = async (req, res) => {
+  try {
+    const { keyName } = req.body;
+    const { _id } = req.user;
+    if (!keyName) {
+      return res.status(400).json({ message: "API key name required" });
+    }
+    const apiKey = await ApiKey.create({
+      user: _id,
+      name: keyName,
+    });
+
+    res.status(201).json({
+      message: "Api key generated Successfully!",
+      success: true,
+      data: {
+        key: apiKey.key,
+        expiresAt: apiKey.expiresAt,
+      },
+    });
+  } catch (error) {
+    console.log("Error in create api key controller", error);
   }
 };
