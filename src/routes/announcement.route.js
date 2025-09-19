@@ -10,9 +10,9 @@ import { handleValidationErrors } from "../middlewares/validation.middleware.js"
 
 const announcementRoute = express.Router();
 
-announcementRoute.get("/announcements", viewAnnouncementController);
+announcementRoute.get("/", viewAnnouncementController);
 announcementRoute.post(
-  "/announcements",
+  "/",
   authorize(["admin", "faculty"]),
   validateAnnouncementCreation,
   handleValidationErrors,
