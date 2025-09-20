@@ -7,7 +7,7 @@ import {
   registerUserController,
 } from "../controllers/user.controller.js";
 import { authenticateJWT } from "../middlewares/auth.middleware.js";
-import { validateRegisterationUser } from "../utils/validator.js";
+import { validateLoginUser, validateRegisterationUser } from "../utils/validator.js";
 import { handleValidationErrors } from "../middlewares/validation.middleware.js";
 
 const userRouter = express.Router();
@@ -20,7 +20,7 @@ userRouter.post(
 );
 userRouter.post(
   "/login",
-  validateRegisterationUser,
+  validateLoginUser,
   handleValidationErrors,
   loginUserController
 );

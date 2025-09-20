@@ -9,10 +9,11 @@ import {
   getCourseController,
   getMaterialsForCourseController,
 } from "../controllers/course.controller.js";
+import { apiKeyAuthenticate } from "../middlewares/apiKey.middleware.js";
 
 const courseRoute = express.Router();
 
-courseRoute.use(authenticateJWT);
+courseRoute.use(authenticateJWT,apiKeyAuthenticate);
 courseRoute.post(
   "/",
   authorize(
