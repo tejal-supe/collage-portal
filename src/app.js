@@ -6,6 +6,8 @@ import userRouter from "./routes/user.route.js";
 import config from "./config/environment.js";
 import announcementRoute from "./routes/announcement.route.js";
 import courseRoute from "./routes/course.route.js";
+import adminRoute from "./routes/admin.route.js";
+import resultRoute from "./routes/results.route.js";
 
 const app = express();
 app.use(
@@ -24,6 +26,8 @@ app.use(cookieParser());
 app.use("/api/v1/auth",userRouter)
 app.use("/api/v1/announcements",announcementRoute);
 app.use("/api/v1/courses",courseRoute)
+app.use("/api/v1/admin", adminRoute);
+app.use("/api/v1/results", resultRoute);
 
 
 export default app; 
