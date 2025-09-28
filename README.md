@@ -1,0 +1,1 @@
+A backend API for a campus portal system implementing Role-Based Access Control (RBAC), where Students, Faculty, and Admins have different permissions to manage announcements, results, events, and course materials. Features include JWT authentication, API key security, role-based route protection, and modular production-ready code.
